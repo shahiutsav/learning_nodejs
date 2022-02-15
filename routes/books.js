@@ -100,7 +100,6 @@ router.get('/:id/edit', async (req, res) => {
 router.put('/:id', upload.single('cover'), async (req, res) => {
     let book
     const fileName = req.file != null ? req.file.filename : null
-    
     try {
         book = await Book.findById(req.params.id)
         book.title = req.body.title
@@ -108,10 +107,11 @@ router.put('/:id', upload.single('cover'), async (req, res) => {
         book.publishDate = new Date(req.body.publishDate)
         book.pageCount = req.body.pageCount
         book.description = req.body.description
-        if (req.body.cover != null && req.body.cover !== '') {
-            book.coverImageName = fileName
-            console.log(fileName)
-        }
+        // if (req.body.cover != null ) {
+        book.coverImageName = fileName
+        console.log(fileName)
+        // }
+        // && req.body.cover !== ''
         await book.save()
         res.redirect(`/books/${book.id}`)
     } catch {
@@ -132,13 +132,13 @@ router.delete('/:id', async (req, res) => {
         await book.remove()
         res.redirect('/books')
     } catch (error) {
-        if(book != null) {
+        if (book != null) {
             res.render('books/show', {
                 book: book,
                 errorMessage: 'Could not remove book'
             })
         }
-        else{
+        else {
             res.redirect('/')
         }
     }

@@ -11,11 +11,14 @@ const methodOverride = require('method-override')
 const indexRouter = require('./routes/index')
 const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
+const loginRouter = require('./routes/login')
+const registerRouter = require('./routes/register')
 
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('layout', 'layouts/layout')
+app.use(express.urlencoded({ extended: false }))
 app.use(expressLayouts)
 app.use(methodOverride('_method'))
 app.use(express.static('public'))
@@ -30,6 +33,8 @@ db.once('open', () => console.log('Connected to Mongoose'))
 app.use('/', indexRouter)
 app.use('/authors', authorRouter)
 app.use('/books', bookRouter)
+app.use('/login', loginRouter)
+app.use('/register', registerRouter)
 
 
 app.listen(process.env.PORT || 3000)
