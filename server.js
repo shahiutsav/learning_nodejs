@@ -15,6 +15,7 @@ const indexRouter = require('./routes/index')
 const authorRouter = require('./routes/authors')
 const bookRouter = require('./routes/books')
 const userRouter = require('./routes/users')
+const adminRouter = require('./routes/admins')
 
 
 app.set('view engine', 'ejs')
@@ -46,6 +47,7 @@ app.use('/', indexRouter)
 app.use('/authors', authorRouter)
 app.use('/books', bookRouter)
 app.use(userRouter)
+app.use(adminRouter)
 
 
 app.listen(process.env.PORT || 3000)
